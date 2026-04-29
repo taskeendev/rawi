@@ -96,3 +96,14 @@ Commands: `sdk install java 21.0.11-tem` → `./mvnw clean package -DskipTests`
           2) `sdk install java 21.0.11-tem` แล้ว SDKMAN set เป็น default ให้อัตโนมัติ
 
 ---
+
+## 2026-04-29 16:20 — ContentItem Entity + REST API
+
+ทำอะไร: สร้าง ContentItem entity, Repository, Service, Controller, ExceptionHandler
+ทำไม: Phase 1 — รับ URL เข้าระบบ save ลง DB status=PENDING
+Endpoints: POST /api/v1/content, GET /api/v1/content/health
+ผล: ✅ 201 Created, 409 Duplicate, 400 Validation ทำงานถูกต้อง
+ปัญหา: DuplicateContentException return 500 เพราะไม่มี handler
+แก้ยังไง: สร้าง GlobalExceptionHandler ด้วย @RestControllerAdvice return ProblemDetail (RFC 7807)
+
+---
