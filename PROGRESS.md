@@ -33,7 +33,7 @@
 - [x] SonarQube (raqib-sonarqube port 9002)
 - [x] Build pipeline pass ✅ (Checkout → Build → Test → SonarQube)
 - [ ] GitHub Webhook → auto deploy
-- [ ] Telegram notify ผล build ✅/❌
+- [x] Telegram notify ผล build ✅/❌
 
 ### Phase 4 — Cloudflare Tunnel
 - [ ] Cloudflare Tunnel free tier
