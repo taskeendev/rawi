@@ -1,3 +1,7 @@
+networks:
+  raqib:
+    external: true
+
 services:
 
   postgres:
@@ -17,6 +21,9 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
+    networks:
+      - default
+      - raqib
 
   pgadmin:
     image: dpage/pgadmin4:latest
