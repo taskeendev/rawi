@@ -29,8 +29,9 @@
 - [ ] แก้ 3D Map UX
 
 ### Phase 3 — DevOps
-- [ ] Jenkins บน Docker
-- [ ] SonarQube
+- [x] Jenkins บน Docker (raqib-jenkins port 8082)
+- [x] SonarQube (raqib-sonarqube port 9002)
+- [x] Build pipeline pass ✅ (Checkout → Build → Test → SonarQube)
 - [ ] GitHub Webhook → auto deploy
 - [ ] Telegram notify ผล build ✅/❌
 
