@@ -7,9 +7,13 @@
 ### Phase 1 — Content Service
 - [x] สร้างโฟลเดอร์โปรเจค
 - [x] Generate Spring Boot 3.5.14 (Java 21 + Spring Batch + JPA + PostgreSQL + Lombok)
-- [ ] Git init + GitHub repo
-- [ ] Docker + PostgreSQL setup
-- [ ] Flyway migration setup
+- [x] Git init + GitHub repo (github.com/taskeendev/rawi)
+- [x] แตก branch phase/1-content-service
+- [x] Docker + PostgreSQL setup (port 5435) + pgAdmin (port 5050)
+- [x] ตั้งค่า application.properties (DB connection)
+- [x] Flyway migration setup (V1__init.sql — table content_item)
+- [x] ติดตั้ง Java 21 (Temurin via SDKMAN)
+- [x] Build ผ่าน ✅ (./mvnw clean package -DskipTests)
 - [ ] Spring Batch job — รับ URL → ดึงเนื้อหา
 - [ ] Ollama integration (AI summarize)
 - [ ] pgvector (similarity check)
