@@ -15,6 +15,8 @@
 - [x] ติดตั้ง Java 21 (Temurin via SDKMAN)
 - [x] Build ผ่าน ✅ (./mvnw clean package -DskipTests)
 - [ ] Spring Batch job — รับ URL → ดึงเนื้อหา
+- [ ] เพิ่ม Uptime Kuma monitor (http://host.docker.internal:8090/actuator/health)
+- [ ] เพิ่ม Grafana dashboard สำหรับ Rawi
 - [ ] Ollama integration (AI summarize)
 - [ ] pgvector (similarity check)
 - [ ] REST API ให้ Tilawah ดึง content
