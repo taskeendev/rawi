@@ -8,5 +8,7 @@ public record ContentRequest(
         @Pattern(regexp = "https?://.+", message = "URL must start with http:// or https://")
         String url,
 
+        String title,
+        String content,
         String source
 ) {}

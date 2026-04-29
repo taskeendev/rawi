@@ -1,0 +1,11 @@
+{
+  "manifest_version": 3,
+  "name": "Rawi Clipper",
+  "version": "1.0",
+  "description": "Save content to Rawi",
+  "permissions": ["activeTab", "scripting", "storage"],
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "Save to Rawi"
+  }
+}
