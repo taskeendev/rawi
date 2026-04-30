@@ -97,6 +97,27 @@ Commands: `sdk install java 21.0.11-tem` → `./mvnw clean package -DskipTests`
 
 ---
 
+## 2026-04-30 11:00 — Prometheus metrics endpoint + Grafana dashboard
+
+ทำอะไร: เพิ่ม micrometer-registry-prometheus ใน pom.xml + expose /actuator/prometheus + สร้าง Grafana dashboard provisioning
+ทำไม: ต้องการ monitor Rawi ใน Grafana เหมือน Tilawah และ Cerberus
+ผล: ✅ Prometheus scrape rawi target ได้ — dashboard ขึ้นใน Grafana
+ปัญหา: dashboard แสดง No data เพราะ datasource UID ใน JSON ใช้ค่า "prometheus" แต่ Grafana ใช้ UID จริงคือ afk90p4bgchkwe
+แก้ยังไง: query Grafana API ดู UID จริง แล้ว replace ทั้งไฟล์
+
+---
+
+## 2026-04-30 11:30 — Uptime Kuma monitor สำหรับ Rawi
+
+ทำอะไร: เพิ่ม monitor "Rawi API" ใน Uptime Kuma ผ่าน Python uptime-kuma-api
+ทำไม: ต้องการ uptime tracking เหมือน Tilawah
+URL: http://host.docker.internal:8090/actuator/health, interval 60s
+ผล: ✅ monitor ID 15 ขึ้น UP
+ปัญหา: login ไม่ได้เพราะ password ใน SERVICES.md บันทึกผิด — password จริงถูก hash ด้วย bcrypt ใน kuma.db
+แก้ยังไง: generate bcrypt hash ใหม่สำหรับ raqib2026 แล้ว UPDATE user table ใน SQLite
+
+---
+
 ## 2026-04-29 17:00 — Jenkins + SonarQube ใน Raqib
 
 ทำอะไร: เพิ่ม Jenkins (lts-jdk21) + SonarQube (lts-community) ใน Raqib docker-compose.yml
