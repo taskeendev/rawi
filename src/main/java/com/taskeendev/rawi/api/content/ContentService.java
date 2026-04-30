@@ -7,6 +7,8 @@ import com.taskeendev.rawi.domain.content.ContentItemRepository;
 import com.taskeendev.rawi.domain.content.ContentStatus;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -48,11 +50,15 @@ public class ContentService {
         return repository.save(item);
     }
 
-    public List<ContentItem> listDone(String category) {
-        if (category != null && !category.isBlank()) {
-            return repository.findByStatusAndCategoryOrderByCreatedAtDesc(ContentStatus.DONE, category);
-        }
-        return repository.findByStatusOrderByCreatedAtDesc(ContentStatus.DONE);
+    public Page<ReadingResponse> listDone(String category, Pageable pageable) {
+        Page<ContentItem> items = (category != null && !category.isBlank())
+                ? repository.findByStatusAndCategory(ContentStatus.DONE, category, pageable)
+                : repository.findByStatus(ContentStatus.DONE, pageable);
+        return items.map(ReadingResponse::from);
+    }
+
+    public List<String> listCategories() {
+        return repository.findDistinctCategories();
     }
 
     public Optional<ContentItem> findById(Long id) {

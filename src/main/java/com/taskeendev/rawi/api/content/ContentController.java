@@ -3,6 +3,9 @@ package com.taskeendev.rawi.api.content;
 import com.taskeendev.rawi.domain.content.ContentItem;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -23,13 +26,24 @@ public class ContentController {
     }
 
     @GetMapping
-    public ResponseEntity<List<ContentItem>> list(@RequestParam(required = false) String category) {
-        return ResponseEntity.ok(service.listDone(category));
+    public ResponseEntity<Page<ReadingResponse>> list(
+            @RequestParam(required = false) String category,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "20") int size
+    ) {
+        PageRequest pageable = PageRequest.of(page, size, Sort.by("createdAt").descending());
+        return ResponseEntity.ok(service.listDone(category, pageable));
+    }
+
+    @GetMapping("/categories")
+    public ResponseEntity<List<String>> categories() {
+        return ResponseEntity.ok(service.listCategories());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ContentItem> get(@PathVariable Long id) {
+    public ResponseEntity<ReadingResponse> get(@PathVariable Long id) {
         return service.findById(id)
+                .map(ReadingResponse::from)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }

@@ -97,6 +97,21 @@ Commands: `sdk install java 21.0.11-tem` → `./mvnw clean package -DskipTests`
 
 ---
 
+## 2026-04-30 13:30 — REST API for Tilawah (pagination + DTO + categories)
+
+ทำอะไร: เพิ่ม pagination, ReadingResponse DTO, และ /categories endpoint
+ทำไม: API เดิม return entity ตรงๆ (รวม embedding field) + ไม่มี pagination ไม่เหมาะสำหรับ production
+การเปลี่ยนแปลง:
+  - ReadingResponse.java — DTO ตัดข้อมูลที่ไม่จำเป็นออก (embedding)
+  - ContentItemRepository — เพิ่ม Page<ContentItem> queries + findDistinctCategories
+  - ContentService — listDone รับ Pageable, เพิ่ม listCategories
+  - ContentController — GET /api/v1/content รับ page/size params, เพิ่ม GET /categories
+Endpoints: GET /api/v1/content?page=0&size=20&category=Religion | GET /api/v1/content/categories
+ผล: ✅ pagination ทำงาน, categories endpoint คืน ["Religion"]
+ปัญหา: ไม่มี
+
+---
+
 ## 2026-04-30 12:30 — pgvector integration
 
 ทำอะไร: เพิ่ม pgvector extension + embedding column ใน content_item table
