@@ -97,6 +97,65 @@ Commands: `sdk install java 21.0.11-tem` → `./mvnw clean package -DskipTests`
 
 ---
 
+## 2026-04-29 17:00 — Jenkins + SonarQube ใน Raqib
+
+ทำอะไร: เพิ่ม Jenkins (lts-jdk21) + SonarQube (lts-community) ใน Raqib docker-compose.yml
+ทำไม: ต้องการ CI/CD pipeline สำหรับ Rawi — build, test, code quality อัตโนมัติ
+Config หลัก: Jenkins port 8082, SonarQube port 9002, mount /Users/taskeen/Desktop/Rawi → /var/rawi-source:ro
+ผล: ✅ ทั้งคู่ขึ้นใน raqib network
+ปัญหา: ไม่มี
+
+---
+
+## 2026-04-29 17:30 — Jenkins Pipeline ครั้งแรก — Test ล้มเหลว
+
+ทำอะไร: สร้าง Jenkinsfile (Checkout → Build → Test → SonarQube) แล้ว run pipeline ครั้งแรก
+ทำไม: ต้องการ automated build pipeline
+ผล: ❌ Test stage fail
+ปัญหา: RawiApplicationTests พยายามต่อ localhost:5435 แต่ Jenkins container ไม่มี postgres
+แก้ยังไง:
+  1. เพิ่ม raqib network ใน Rawi docker-compose → rawi-postgres เข้า network เดียวกับ Jenkins
+  2. สร้าง application-ci.properties ชี้ DB ไปที่ rawi-postgres:5432
+  3. แก้ Jenkinsfile ใช้ -Dspring.profiles.active=ci ตอน test
+
+---
+
+## 2026-04-29 18:00 — Jenkins Pipeline — Password Authentication Failed
+
+ทำอะไร: run pipeline หลังแก้ network แล้ว
+ผล: ❌ ยัง fail — FATAL: password authentication failed for user "rawi"
+ปัญหา: Jenkins container ไม่มี DB_PASSWORD env var — application-ci.properties ใช้ ${DB_PASSWORD} แต่ไม่มีค่า
+แก้ยังไง: เพิ่ม DB_PASSWORD=${RAWI_DB_PASSWORD} ใน Jenkins environment ใน Raqib docker-compose + เพิ่ม RAWI_DB_PASSWORD=rawi2026 ใน Raqib .env
+
+---
+
+## 2026-04-29 18:30 — Jenkins Pipeline — BUILD SUCCESS ✅
+
+ทำอะไร: restart Jenkins พร้อม env var ใหม่ แล้ว trigger build
+ผล: ✅ Finished: SUCCESS — Checkout → Build → Test → SonarQube ผ่านครบ
+ปัญหา: ไม่มี
+
+---
+
+## 2026-04-29 19:00 — Jenkins Dark Theme
+
+ทำอะไร: ติดตั้ง dark-theme plugin ผ่าน jenkins-plugin-cli
+ทำไม: UI default สว่างเกินไป
+Command: docker exec raqib-jenkins jenkins-plugin-cli --plugins dark-theme
+ผล: ✅ สำเร็จ — เปิดที่ Manage Jenkins → Appearance → Dark
+
+---
+
+## 2026-04-29 19:30 — Telegram Notify บน Jenkins Pipeline
+
+ทำอะไร: เพิ่ม post section ใน Jenkinsfile ส่ง Telegram เมื่อ build success/failure
+ทำไม: ต้องการแจ้งเตือนผล build ทันทีโดยไม่ต้องเปิด Jenkins
+Config: ใช้ TELEGRAM_BOT_TOKEN + TELEGRAM_CHAT_ID จาก Raqib .env inject เข้า Jenkins container
+ผล: ✅ Telegram แจ้งเตือน ✅ build #N passed / ❌ failed พร้อม BUILD_URL
+ปัญหา: ไม่มี
+
+---
+
 ## 2026-04-29 16:20 — ContentItem Entity + REST API
 
 ทำอะไร: สร้าง ContentItem entity, Repository, Service, Controller, ExceptionHandler
