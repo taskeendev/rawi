@@ -17,7 +17,7 @@
 - [x] Spring Batch job — รับ URL → ดึงเนื้อหา (scrape + AI summary + category, POST /api/v1/batch/run)
 - [x] เพิ่ม Uptime Kuma monitor (http://host.docker.internal:8090/actuator/health)
 - [x] เพิ่ม Grafana dashboard สำหรับ Rawi
-- [ ] Ollama integration (AI summarize)
+- [~] Ollama integration (AI summarize) — ⏭️ ข้าม: เครื่องยังใช้งานอยู่ RAM 85% + response 13s/URL ช้าเกินสำหรับ batch, Groq API เร็วกว่าและฟรี tier เพียงพอ — กลับมา reconsider เมื่อมีเครื่อง dedicated จริงๆ หรือ RAM 32GB+
 - [ ] pgvector (similarity check)
 - [ ] REST API ให้ Tilawah ดึง content
 - [ ] Obsidian sync (สร้าง .md ลง vault)
