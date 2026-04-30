@@ -14,7 +14,7 @@
 - [x] Flyway migration setup (V1__init.sql — table content_item)
 - [x] ติดตั้ง Java 21 (Temurin via SDKMAN)
 - [x] Build ผ่าน ✅ (./mvnw clean package -DskipTests)
-- [ ] Spring Batch job — รับ URL → ดึงเนื้อหา
+- [x] Spring Batch job — รับ URL → ดึงเนื้อหา (scrape + AI summary + category, POST /api/v1/batch/run)
 - [ ] เพิ่ม Uptime Kuma monitor (http://host.docker.internal:8090/actuator/health)
 - [ ] เพิ่ม Grafana dashboard สำหรับ Rawi
 - [ ] Ollama integration (AI summarize)
