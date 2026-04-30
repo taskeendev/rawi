@@ -97,6 +97,20 @@ Commands: `sdk install java 21.0.11-tem` → `./mvnw clean package -DskipTests`
 
 ---
 
+## 2026-04-30 12:30 — pgvector integration
+
+ทำอะไร: เพิ่ม pgvector extension + embedding column ใน content_item table
+ทำไม: ต้องการ similarity search สำหรับหา content ที่คล้ายกัน ป้องกัน duplicate
+การเปลี่ยนแปลง:
+  - docker-compose.yml: เปลี่ยน image postgres:15-alpine → pgvector/pgvector:pg15
+  - V2__add_vector.sql: CREATE EXTENSION vector + ALTER TABLE เพิ่ม embedding vector(768) + ivfflat index
+  - pom.xml: เพิ่ม com.pgvector:pgvector:0.1.6
+ผล: ✅ column embedding vector(768) + index ivfflat พร้อมใช้งาน
+ปัญหา: postgres:15-alpine ไม่มี pgvector extension → ต้อง recreate container + ลบ volume (ข้อมูล test หาย)
+แก้ยังไง: เปลี่ยน image เป็น pgvector/pgvector:pg15 ซึ่งมี extension built-in
+
+---
+
 ## 2026-04-30 11:00 — Prometheus metrics endpoint + Grafana dashboard
 
 ทำอะไร: เพิ่ม micrometer-registry-prometheus ใน pom.xml + expose /actuator/prometheus + สร้าง Grafana dashboard provisioning
