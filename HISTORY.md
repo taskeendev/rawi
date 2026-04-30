@@ -97,6 +97,21 @@ Commands: `sdk install java 21.0.11-tem` → `./mvnw clean package -DskipTests`
 
 ---
 
+## 2026-04-30 14:30 — Obsidian sync
+
+ทำอะไร: สร้าง ObsidianSyncService เขียน .md ไฟล์ลง vault หลัง batch process เสร็จ
+ทำไม: ต้องการ private knowledge base ใน Obsidian แยกจาก Tilawah (public)
+การเปลี่ยนแปลง:
+  - ObsidianSyncService.java — เขียน .md พร้อม frontmatter (title, category, source, url, date, tags)
+  - ContentProcessor.java — เรียก obsidianSyncService.sync(item) หลัง status = DONE
+  - application.properties — เพิ่ม rawi.obsidian.vault-path
+  - ติดตั้ง Obsidian + สร้าง vault ที่ ~/Documents/Rawi-Vault
+โครงสร้างไฟล์: Rawi-Vault/{category}/{title}.md
+ผล: ✅ Medina - Wikipedia.md สร้างใน Rawi-Vault/Religion/ พร้อม frontmatter ครบ
+ปัญหา: ไม่มี
+
+---
+
 ## 2026-04-30 13:30 — REST API for Tilawah (pagination + DTO + categories)
 
 ทำอะไร: เพิ่ม pagination, ReadingResponse DTO, และ /categories endpoint

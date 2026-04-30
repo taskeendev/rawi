@@ -4,6 +4,7 @@ import com.taskeendev.rawi.ai.AiAnalysis;
 import com.taskeendev.rawi.ai.GeminiService;
 import com.taskeendev.rawi.domain.content.ContentItem;
 import com.taskeendev.rawi.domain.content.ContentStatus;
+import com.taskeendev.rawi.obsidian.ObsidianSyncService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.jsoup.Jsoup;
@@ -17,6 +18,7 @@ import org.springframework.stereotype.Component;
 public class ContentProcessor implements ItemProcessor<ContentItem, ContentItem> {
 
     private final GeminiService geminiService;
+    private final ObsidianSyncService obsidianSyncService;
 
     private static final int MAX_TEXT_LENGTH = 4000;
 
@@ -47,6 +49,7 @@ public class ContentProcessor implements ItemProcessor<ContentItem, ContentItem>
             item.setSummary(analysis.summary());
             item.setCategory(analysis.category());
             item.setStatus(ContentStatus.DONE);
+            obsidianSyncService.sync(item);
 
         } catch (Exception e) {
             log.error("Failed to process {}: {}", item.getUrl(), e.getMessage());
