@@ -2,6 +2,24 @@
 
 ---
 
+## 2026-05-02 — Deploy Rawi บน Render + Migrate DB ไป Neon
+
+ทำอะไร: Deploy Rawi Spring Boot ขึ้น cloud ครั้งแรก
+ทำไม: ต้องการให้ Tilawah (Vercel) เรียก Rawi API ได้จาก public URL
+การเปลี่ยนแปลง:
+  - Dockerfile (multi-stage): build stage eclipse-temurin:21-jdk-alpine, runtime eclipse-temurin:21-jre-alpine, JVM flags -Xmx300m
+  - application.properties: เปลี่ยน DB config เป็น env vars (DB_URL, DB_USERNAME, DB_PASSWORD)
+  - .env.example: อัปเดต template ให้ครบ
+  - DB: ย้ายจาก local PostgreSQL (port 5435) → Neon PostgreSQL 16 (Singapore)
+  - Flyway migrate schema บน Neon สำเร็จ (2 migrations)
+  - Deploy: Render free tier, branch phase/1-content-service
+URL: https://rawi-3fe4.onrender.com
+ผล: ✅ Health UP, DB UP, /actuator/health ผ่าน
+ปัญหา: Koyeb + Railway เปลี่ยนเป็น paid — ใช้ Render แทน (มี cold start 30วิ)
+หมายเหตุ: repo เปลี่ยนเป็น public เพื่อให้ Render free tier เข้าถึงได้
+
+---
+
 ## 2026-04-29 15:00 — สร้างโฟลเดอร์โปรเจค
 
 ทำอะไร: สร้าง folder ~/Desktop/Rawi

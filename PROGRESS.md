@@ -1,6 +1,6 @@
 # Rawi (راوي) — Progress
 
-## Status: กำลังทำ
+## Status: Phase 1 ✅ Deploy สำเร็จ (2026-05-02)
 
 ## Phase Roadmap
 
@@ -21,6 +21,9 @@
 - [x] pgvector (similarity check) — vector(768) + ivfflat index, image เปลี่ยนเป็น pgvector/pgvector:pg15
 - [x] REST API ให้ Tilawah ดึง content — GET /content (pagination + category filter) + GET /categories
 - [x] Obsidian sync — สร้าง .md ลง ~/Documents/Rawi-Vault/{category}/ หลัง batch process เสร็จ
+- [x] Dockerfile (multi-stage Java 21) + env var config สำหรับ cloud
+- [x] Deploy บน Render — https://rawi-3fe4.onrender.com
+- [x] DB migrate ไป Neon (PostgreSQL 16 + pgvector) — Singapore region
 
 ### Phase 2 — Tilawah v2 Frontend
 - [ ] UI refresh Netflix style (dark #141414, hero banner, hover effect)
@@ -42,8 +45,9 @@
 ## Tech Stack
 - Language: Java 21
 - Framework: Spring Boot 3.5.14 + Spring Batch
-- AI: Ollama (Mac Mini M4)
-- Vector DB: pgvector
-- Deploy: Docker (Mac Mini M4)
+- AI: Groq API (llama-3.3-70b-versatile)
+- Vector DB: pgvector (Neon)
+- Deploy: Render (https://rawi-3fe4.onrender.com)
+- DB: Neon PostgreSQL 16 (Singapore)
 - CI/CD: Jenkins + SonarQube + GitHub Webhook
 - Notify: Telegram (Raqib bot)
