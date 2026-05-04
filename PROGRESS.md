@@ -1,6 +1,6 @@
 # Rawi (راوي) — Progress
 
-## Status: Phase 1.5 — Production Deploy (กำลังทำ)
+## Status: Phase 3 — CI/CD ✅
 
 ## Phase Roadmap
 
@@ -25,27 +25,27 @@
 - [x] Deploy บน Render — https://rawi-3fe4.onrender.com
 - [x] DB migrate ไป Neon (PostgreSQL 16 + pgvector) — Singapore region
 
-### Phase 1.5 — Production Deploy 🔄
-- [ ] CORS — อนุญาต Vercel domain
-- [ ] Merge phase/1-content-service → main
-- [ ] Render เปลี่ยนมา watch main
-- [ ] Tilawah: แก้ NEXT_PUBLIC_RAWI_API_URL → https://rawi-3fe4.onrender.com
-- [ ] Tilawah: แก้ output: 'standalone' ออกจาก next.config.ts
-- [ ] Tilawah: cold start UX — loading/fallback state บน Readings page
-- [ ] Deploy Tilawah บน Vercel
+### Phase 1.5 — Production Deploy ✅
+- [x] CORS — อนุญาต Vercel domain
+- [x] Merge phase/1-content-service → main
+- [x] Render watch main (via deploy hook)
+- [x] Tilawah: NEXT_PUBLIC_RAWI_API_URL → https://rawi-3fe4.onrender.com
+- [x] Tilawah: ลบ output: 'standalone' ออกจาก next.config.ts
+- [x] Tilawah: cold start UX — loading/fallback state บน Readings page
+- [x] Deploy Tilawah บน Vercel — https://tilawah-three.vercel.app
 
-### Phase 2 — Tilawah v2 Frontend
-- [ ] UI refresh Netflix style (dark #141414, hero banner, hover effect)
-- [ ] Unsplash API integration
-- [ ] หน้า Ilm (علم) — คลัง content + ปุ่มสุ่ม
-- [ ] แก้ 3D Map UX
+### Phase 2 — Tilawah v2 Frontend ✅
+- [x] UI refresh Netflix style (dark theme, hero banner, hover effect)
+- [x] Unsplash API integration
+- [x] หน้า Ilm (علم) — คลัง content + ปุ่มสุ่ม
+- [x] 3D Map UX
 
-### Phase 3 — GitHub Actions CI/CD
-- [ ] GitHub Actions workflow (Build → Test → SonarCloud → Deploy)
-- [ ] Render deploy hook ใน GitHub Actions
-- [ ] Vercel deploy hook ใน GitHub Actions
-- [ ] Telegram notify ผล build ✅/❌
+### Phase 3 — GitHub Actions CI/CD ✅
+- [x] GitHub Actions workflow (Build → Test → Deploy)
+- [x] Render deploy hook ใน GitHub Actions
+- [x] Telegram notify ผล build ✅/❌
 - [x] Jenkins + SonarQube (local — learning/portfolio เท่านั้น)
+- [ ] Vercel deploy hook ใน GitHub Actions (ไม่จำเป็น — Vercel auto-deploy จาก GitHub แล้ว)
 
 ### Phase 4 — Domain
 - [ ] ซื้อ domain
@@ -59,5 +59,5 @@
 - Vector DB: pgvector (Neon)
 - Deploy: Render (https://rawi-3fe4.onrender.com)
 - DB: Neon PostgreSQL 16 (Singapore)
-- CI/CD: GitHub Actions (Phase 3)
+- CI/CD: GitHub Actions ✅
 - Notify: Telegram (Raqib bot)

@@ -2,6 +2,19 @@
 
 ---
 
+## 2026-05-05 — Phase 3 GitHub Actions CI/CD ✅
+
+ทำอะไร: ตั้งค่า GitHub Actions pipeline — build, test, deploy to Render, Telegram notify
+ทำไม: ต้องการ auto-deploy ทุกครั้งที่ push to main โดยไม่ต้อง manual trigger
+การเปลี่ยนแปลง:
+  - .github/workflows/ci.yml: trigger on push/PR to main, postgres service container (pgvector:pg16), Maven build + test + deploy + notify
+  - application-ci.properties: เปลี่ยน rawi-postgres → localhost (GitHub Actions service container)
+  - GitHub Secrets: RENDER_DEPLOY_HOOK_URL, TELEGRAM_BOT_TOKEN, TELEGRAM_CHAT_ID, DB_PASSWORD
+  - Merge phase/1-content-service → main (Phase 1 code ขึ้น main ครั้งแรก)
+ผล: ✅ Build #1 สำเร็จใน 1m13s — Render deploy triggered, Telegram แจ้งเตือน
+
+---
+
 ## 2026-05-02 — Deploy Rawi บน Render + Migrate DB ไป Neon
 
 ทำอะไร: Deploy Rawi Spring Boot ขึ้น cloud ครั้งแรก
