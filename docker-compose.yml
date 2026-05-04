@@ -1,0 +1,41 @@
+networks:
+  raqib:
+    external: true
+
+services:
+
+  postgres:
+    image: pgvector/pgvector:pg15
+    container_name: rawi-postgres
+    restart: unless-stopped
+    ports:
+      - "5435:5432"
+    environment:
+      - POSTGRES_USER=rawi
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+      - POSTGRES_DB=rawi_db
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U rawi -d rawi_db"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - default
+      - raqib
+
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    container_name: rawi-pgadmin
+    restart: unless-stopped
+    ports:
+      - "5050:80"
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=${PGADMIN_EMAIL}
+      - PGADMIN_DEFAULT_PASSWORD=${PGADMIN_PASSWORD}
+    depends_on:
+      - postgres
+
+volumes:
+  postgres_data:

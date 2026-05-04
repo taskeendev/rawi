@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <style>
+    body { width: 280px; padding: 16px; font-family: sans-serif; background: #0f0f0f; color: #eee; }
+    h3 { margin: 0 0 12px; font-size: 14px; color: #fff; }
+    button {
+      width: 100%; padding: 10px; background: #e50914; color: #fff;
+      border: none; border-radius: 6px; font-size: 14px; cursor: pointer;
+    }
+    button:hover { background: #b2070f; }
+    button:disabled { background: #444; cursor: not-allowed; }
+    #status { margin-top: 10px; font-size: 12px; color: #aaa; min-height: 18px; }
+    #status.ok { color: #4caf50; }
+    #status.err { color: #e50914; }
+    .setting { margin-top: 12px; }
+    label { font-size: 11px; color: #888; display: block; margin-bottom: 4px; }
+    input {
+      width: 100%; box-sizing: border-box; padding: 6px 8px;
+      background: #1e1e1e; border: 1px solid #333; border-radius: 4px;
+      color: #eee; font-size: 12px;
+    }
+  </style>
+</head>
+<body>
+  <h3>Rawi Clipper</h3>
+  <button id="saveBtn">Save to Rawi</button>
+  <div id="status"></div>
+  <div class="setting">
+    <label>Rawi API URL</label>
+    <input id="apiUrl" type="text" placeholder="http://localhost:8090">
+  </div>
+  <script src="popup.js"></script>
+</body>
+</html>
