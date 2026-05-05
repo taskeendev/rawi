@@ -2,6 +2,21 @@
 
 ---
 
+## 2026-05-05 — Phase 4 Custom Domain 🔄
+
+ทำอะไร: ตั้งค่า custom domain สำหรับ Tilawah และ Rawi
+ทำไม: ต้องการ URL ที่จำง่ายแทน tilawah-three.vercel.app และ rawi-3fe4.onrender.com
+Domain ที่ใช้: tilawah.run.place (DNS Exit) + rawi.run.place (จดเพิ่ม)
+การเปลี่ยนแปลง:
+  - Vercel: เพิ่ม www.tilawah.run.place เข้า project tilawah ผ่าน API
+  - GitHub Secrets (rawi): RENDER_DEPLOY_HOOK_URL, TELEGRAM_BOT_TOKEN, TELEGRAM_CHAT_ID, DB_PASSWORD เพิ่มแล้ว
+ยังค้างอยู่:
+  - DNS Exit: www alias ยังไม่ชี้ไป cname.vercel-dns.com (ยัง propagate ไม่ผ่าน)
+  - Render: ยังไม่ได้ add rawi.run.place ใน dashboard
+  - Vercel domain verify: รอ DNS ก่อน
+
+---
+
 ## 2026-05-05 — Phase 3 GitHub Actions CI/CD ✅
 
 ทำอะไร: ตั้งค่า GitHub Actions pipeline — build, test, deploy to Render, Telegram notify
